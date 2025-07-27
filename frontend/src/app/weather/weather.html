@@ -1,0 +1,180 @@
+<!-- <body> -->
+<section>
+  <div class="weather-container">
+    <h1>🌤️ Weather App</h1>
+
+    <div class="search-box">
+      <input [(ngModel)]="city" placeholder="Enter City Name..." />
+      <button (click)="search()">Search</button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-msg">❌ {{ errorMessage }}</div>
+
+    <div class="result" *ngIf="weatherData">
+      <h2>{{ weatherData.city }}</h2>
+      <p>
+        🌡️ Temp: <strong>{{ weatherData.temperature }}°C</strong>
+      </p>
+      <p>
+        🌈 Condition: <strong>{{ weatherData.description }}</strong>
+      </p>
+    </div>
+
+    <div class="history" *ngIf="history.length">
+      <h3>📜 Search History</h3>
+      <ul>
+        <li *ngFor="let item of history">
+          <div class="history-item">
+            <span>
+              <strong>{{ item.city }}</strong> – {{ item.temperature }}°C –
+              {{ item.description }}
+            </span>
+            <button class="delete-btn" (click)="deleteHistoryItem(item._id)">
+              🗑 Remove
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- </body> -->
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    color: #333;
+  }
+
+  section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    /* background: url(https://images.unsplash.com/photo-1495422964407-28c01bf82b0d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ymx1cnJ5JTIwYmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60); */
+    background-position: center;
+    background-size: cover;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    
+  }
+
+  .weather-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    color: #0077b6;
+  }
+
+  .search-box {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .error-msg {
+    color: rgb(225, 2, 3);
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  input {
+    padding: 10px;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 16px;
+    background: #0077b6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #023e8a;
+  }
+
+  .result {
+    margin-top: 20px;
+    background: #e0f7fa;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--box);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+
+  .delete-btn {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .delete-btn:hover {
+    background-color: #c62828;
+  }
+
+  .history {
+    text-align: left;
+    margin-top: 30px;
+  }
+
+  .history ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .history li {
+    background: #f1f1f1;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  @media (max-width: 600px) {
+    .search-box {
+      flex-direction: column;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+</style>
